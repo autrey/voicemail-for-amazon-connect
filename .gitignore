@@ -1,2 +1,6 @@
 source/aws-connect-vm-portal/node_modules/*
 source/aws-connect-vm-serverless/node_modules/
+source/aws-connect-vm-portal/build
+source/aws-connect-vm-portal/env
+source/aws-connect-vm-serverless/handler
+source/aws-connect-vm-serverless/.serverless
