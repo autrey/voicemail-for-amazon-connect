@@ -317,7 +317,7 @@ resources:
       Default: ${self:custom.config.UUID, ""}
       Type: String
     VoicemailAccessLogBucket:
-      Default: "VoicemailAccessLogBucket"
+      Default: ${self:custom.config.VOICEMAIL_ACCESS_LOG_BUCKET, ""}
       Type: String
     SendAnonymousData:
       Default: ${self:customer.config.SEND_ANON_DATA, ""}
