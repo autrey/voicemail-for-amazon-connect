@@ -6,7 +6,9 @@
     "build": "webpack && mvn clean package",
     "info:dev": "sls info --verbose --stage dev --region us-west-2 | node tools/process-output.js ",
     "deploy:dev": "npm run build && sls deploy --stage dev --region us-west-2 && npm run info:dev",
-    "test": "jest tests/*.test.js"
+    "test": "jest tests/*.test.js",
+    "info:prod": "sls info --verbose --stage prod --region us-east-2 | node tools/process-output.js ",
+    "deploy:prod": "npm run build && sls deploy --stage prod --region us-east-2 && npm run info:prod"
   },
   "author": "",
   "license": "ISC",
@@ -42,13 +44,12 @@
     "glob": "^7.1.5",
     "is-nan": "^1.3.0",
     "jest": "^24.9.0",
-    "serverless": "^1.56.1",
     "serverless-offline": "^5.7.3",
     "serverless-prune-plugin": "^1.4.1",
     "serverless-pseudo-parameters": "^2.4.0",
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.19.1",
-    "webpack-cli": "^3.3.11",
+    "webpack-cli": "^3.3.12",
     "webpack-node-externals": "^1.7.2"
   },
   "jest": {
