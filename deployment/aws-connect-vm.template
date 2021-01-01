@@ -3388,43 +3388,6 @@
           ]
         }
       }
-    },
-    "AudioRecordingsBucketReadPolicy": {
-      "Type": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Ref": "AudioRecordingsBucket"
-        },
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": {
-                  "Ref": "AWS::AccountId"
-                }
-              },
-              "Action": "s3:GetObject",
-              "Resource": {
-                "Fn::Sub": "arn:aws:s3:::${AudioRecordingsBucket}/*"
-              }
-            },
-            {
-              "Effect": "Deny",
-              "Principal": "*",
-              "Action": "s3:GetObject",
-              "Resource": {
-                "Fn::Sub": "arn:aws:s3:::${AudioRecordingsBucket}/*"
-              },
-              "Condition": {
-                "Bool": {
-                  "aws:SecureTransport": "false"
-                }
-              }
-            }
-          ]
-        }
-      }
     }
   },
   "Outputs": {
