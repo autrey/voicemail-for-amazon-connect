@@ -1,0 +1,11 @@
+AMAZON_CONNECT_INSTANCE_ARN: "arn:aws:connect:us-east-1:686518649249:instance/b75e7c46-36ef-4429-ac90-a9e5968a3c52"
+DELIVERY_EMAIL: "chris.autrey@retinalcare.com"
+ADMIN_EMAIL: "chris.autrey@retinalcare.com"
+ADMIN_FIRST_NAME: "Chris"
+ADMIN_LAST_NAME: "Autrey"
+MANAGER_EMAIL: "autrey@outlook.com"
+MANAGER_FIRST_NAME: "Chris"
+MANAGER_LAST_NAME: "Personal"
+AVAILABLE_SMS_COUNTRIES: 'us,ca'
+SIGNED_RECORDING_URL_EXP: 900
+VOICEMAIL_ACCESS_LOG_BUCKET: "rci-vmail-access-logs"
