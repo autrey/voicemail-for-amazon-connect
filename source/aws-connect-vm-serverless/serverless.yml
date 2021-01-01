@@ -495,9 +495,7 @@ resources:
                 - PUT
                 - HEAD
               MaxAge: '3000'
-        LoggingConfiguration:
-          DestinationBucketName: !Ref VoicemailAccessLogBucket
-          LogFilePrefix: "audio-recording-bucket-logs"
+        
 
     
 
