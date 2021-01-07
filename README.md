@@ -71,3 +71,67 @@ Licensed under the Apache License Version 2.0 (the "License"). You may not use t
     http://www.apache.org/licenses/
 
 or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+
+## Notes
+* Removed AudioRecordingsBucketReadPolicy from aws-connect-vm-template
+```json
+"AudioRecordingsBucketReadPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "AudioRecordingsBucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Ref": "AWS::AccountId"
+                }
+              },
+              "Action": "s3:GetObject",
+              "Resource": {
+                "Fn::Sub": "arn:aws:s3:::${AudioRecordingsBucket}/*"
+              }
+            },
+            {
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:GetObject",
+              "Resource": {
+                "Fn::Sub": "arn:aws:s3:::${AudioRecordingsBucket}/*"
+              },
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+```
+* Removed the following policy from cloudfront.template
+```yaml
+PortalBucketReadPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref PortalBucket
+      PolicyDocument:
+        Statement:
+          - Action: 's3:GetObject'
+            Effect: Allow
+            Resource: !Sub 'arn:aws:s3:::${PortalBucket}/*'
+            Principal:
+              CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+          - Action: "s3:GetObject"
+            Effect: Deny
+            Resource: !Sub 'arn:aws:s3:::${PortalBucket}/*'
+            Principal: "*"
+            Condition:
+              Bool:
+                'aws:SecureTransport': 'false'
+```
