@@ -9,3 +9,4 @@ source/aws-connect-vm-serverless/target
 
 source/aws-connect-vm-serverless/handler
 source/aws-connect-vm-serverless/target/aws-connect-vm-java.jar
+.DS_Store
