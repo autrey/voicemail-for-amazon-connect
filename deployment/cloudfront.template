@@ -64,24 +64,6 @@ Resources:
     Properties:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Ref PortalBucket
-  PortalBucketReadPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref PortalBucket
-      PolicyDocument:
-        Statement:
-          - Action: 's3:GetObject'
-            Effect: Allow
-            Resource: !Sub 'arn:aws:s3:::${PortalBucket}/*'
-            Principal:
-              CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-          - Action: "s3:GetObject"
-            Effect: Deny
-            Resource: !Sub 'arn:aws:s3:::${PortalBucket}/*'
-            Principal: "*"
-            Condition:
-              Bool:
-                'aws:SecureTransport': 'false'
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
