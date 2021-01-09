@@ -74,7 +74,9 @@ or in the "license" file accompanying this file. This file is distributed on an 
 
 
 ## Notes
+
 * Removed AudioRecordingsBucketReadPolicy from aws-connect-vm-template
+
 ```json
 "AudioRecordingsBucketReadPolicy": {
       "Type": "AWS::S3::BucketPolicy",
@@ -114,7 +116,9 @@ or in the "license" file accompanying this file. This file is distributed on an 
       }
     }
 ```
+
 * Removed the following policy from cloudfront.template
+
 ```yaml
 PortalBucketReadPolicy:
     Type: AWS::S3::BucketPolicy
