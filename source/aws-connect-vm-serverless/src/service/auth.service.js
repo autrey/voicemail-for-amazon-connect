@@ -42,7 +42,7 @@ class AuthService {
             let jwtSplit = token.split(".");
             let header = JSON.parse(jose.util.base64url.decode(jwtSplit[0]));
             let kid = header.kid;
-
+            console.info(`ValidateAndGeneratePolicy methodArn: ${methodArn}`)
             return this.verifyKey(kid, token, this.keysUrl).then(claims => this.verifyAndGeneratePolicy(claims, methodArn));
         }
     }
@@ -52,6 +52,9 @@ class AuthService {
             throw 'Invalid claim';
         }
         let {claims, effect, reason} = claimResults;
+        console.info(`reason: ${reason}`)
+        console.info(`effect: ${effect}`)
+        console.info(`claims: ${claims}`)
         let username = claims['cognito:username'];
         if (effect) {
             return this._generate(username, effect, methodArn, claims, {
@@ -111,6 +114,8 @@ class AuthService {
         let isAdmin = roles.includes('Admin');
         let isManager = roles.includes('Manager');
         let gatewayResource = AwsResourceUtil.parseApiGatewayResource(resource);
+        console.info('gateway resource below')
+        console.info(gatewayResource)
         let policy = new AuthPolicy(principalId, gatewayResource.accountId, gatewayResource.apiOptions);
 
         if (effect.toLowerCase() === "allow") {
@@ -129,6 +134,9 @@ class AuthService {
                     ...context
                 };
             }
+
+            console.log(`Policy Response below`)
+            console.log(policyResponse)
             return policyResponse;
         } else {
             return this._build(principalId, effect, resource, claims, context);
