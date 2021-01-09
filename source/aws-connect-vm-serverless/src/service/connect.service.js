@@ -19,12 +19,28 @@ const delay = t => new Promise(resolve => setTimeout(resolve, t));
 class ConnectService {
 
     constructor() {
+
+        let _getPosition = function(string, subString, index) {
+            return string.split(subString, index).join(subString).length;
+          }
+
         this.instanceId = process.env.AMAZON_CONNECT_INSTANCE_ARN.split('/')[1];
-        this.connect = new AWS.Connect();
+        
+        const arn = process.env.AMAZON_CONNECT_INSTANCE_ARN;
+        const connectRegion = arn.substr(_getPosition(arn, ":", 3)+1, _getPosition(arn, ":", 4) - _getPosition(arn, ":", 3)-1)
+        this.connect = new AWS.Connect({
+            region: connectRegion
+        });
+        this.connect.endpoint = `https://connect.${connectRegion}.amazonaws.com`;
+        console.info(`Connect service endpoint set to: ${this.connect.endpoint}`);
 
         // max backoff time set to 30 sec
         this.maxBackOffTime = 30;
+
+        
     }
+
+    
 
 
     /**
