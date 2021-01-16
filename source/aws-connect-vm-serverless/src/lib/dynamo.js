@@ -15,9 +15,20 @@ const AWS = require("aws-sdk");
 
 class DynamoDBService {
 
-    constructor(tableName) {
+    constructor(tableName, ddbRegion) {
         this.tableName = tableName;
-        this.client = new AWS.DynamoDB.DocumentClient();
+        let ddbService;
+        if (ddbRegion){
+            ddbService = new AWS.DynamoDB({
+                region:ddbRegion
+            });
+        }else{
+            ddbService = new AWS.DynamoDB();
+        }
+
+        this.client = new AWS.DynamoDB.DocumentClient({
+            service: ddbService
+        });
     }
 
     /**
