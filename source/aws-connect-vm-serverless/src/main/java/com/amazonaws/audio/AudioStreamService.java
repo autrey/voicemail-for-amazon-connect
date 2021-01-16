@@ -38,6 +38,7 @@ import java.util.Optional;
 public class AudioStreamService {
 
     private static final Regions REGION = Regions.fromName(System.getenv("APP_REGION"));
+    private static final Regions CONNECT_REGION = Regions.fromName(System.getenv("CONNECT_REGION"));
     private static final String RECORDINGS_BUCKET_NAME = System.getenv("RECORDINGS_BUCKET_NAME");
     private static final String RECORDINGS_KEY_PREFIX = System.getenv("RECORDINGS_KEY_PREFIX");
     private static final boolean RECORDINGS_PUBLIC_READ_ACL = Boolean.parseBoolean(System.getenv("RECORDINGS_PUBLIC_READ_ACL"));
@@ -66,7 +67,7 @@ public class AudioStreamService {
         FileOutputStream fileOutputStream = new FileOutputStream(saveAudioFilePath.toString());
         String streamName = streamARN.substring(streamARN.indexOf("/") + 1, streamARN.lastIndexOf("/"));
 
-        InputStream kvsInputStream = KVSUtils.getInputStreamFromKVS(streamName, REGION, startFragmentNum, getAWSCredentials(), START_SELECTOR_TYPE);
+        InputStream kvsInputStream = KVSUtils.getInputStreamFromKVS(streamName, CONNECT_REGION, startFragmentNum, getAWSCredentials(), START_SELECTOR_TYPE);
         StreamingMkvReader streamingMkvReader = StreamingMkvReader.createDefault(new InputStreamParserByteSource(kvsInputStream));
 
         FragmentMetadataVisitor.BasicMkvTagProcessor tagProcessor = new FragmentMetadataVisitor.BasicMkvTagProcessor();
