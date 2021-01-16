@@ -72,7 +72,7 @@ public class KVSProcessRecordingLambda implements RequestHandler<KinesisEvent, S
         ContactVoicemailRepo contactVoicemailRepo = new ContactVoicemailRepo(
                 traceRecord.getContactId(),
                 traceRecord.getCustomerEndpoint().getAddress(),
-                new DynamoDB(builder.build()),
+                new DynamoDB(builder.withRegion(REGION).build()),
                 logRecordsFlag
         );
 
