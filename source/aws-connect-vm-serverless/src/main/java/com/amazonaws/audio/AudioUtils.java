@@ -88,7 +88,7 @@ public final class AudioUtils {
 
             AmazonS3Client s3Client = (AmazonS3Client)AmazonS3ClientBuilder.standard()
                     .withRegion(region)
-                    .withCredentials(awsCredentials)
+//.withCredentials(awsCredentials)
                     .build();
 
             wavFile = convertToWav(audioFilePath);
