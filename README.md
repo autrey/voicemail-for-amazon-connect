@@ -139,3 +139,39 @@ PortalBucketReadPolicy:
               Bool:
                 'aws:SecureTransport': 'false'
 ```
+* Changed the policy for 
+
+arn:aws:connect:us-east-1:686518649249:instance/b75e7c46-36ef-4429-ac90-a9e5968a3c52
+
+* The policy for the BuildContactFlowLambda is
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:us-east-2:686518649249:log-group:/aws/lambda/*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "connect:ListQueues"
+            ],
+            "Resource": "arn:aws:connect:us-east-1:686518649249:instance/b75e7c46-36ef-4429-ac90-a9e5968a3c52",
+            "Effect": "Allow"
+        }
+    ]
+}
+```
+* Just added a setting to allow the DynamoDB Service used by the Users Repo to accept/use an optional environment var of DDB_REGION in case we don't want to use the default in the Lambda function that's using the service.
+
+* Changed the timeout of the KVS Processing Java Lambda to 5 mins.
+
+* Added SECRET_ARN to the Transcription Events Lambda, added the permissions to access the secret to the Lambda's execution role
