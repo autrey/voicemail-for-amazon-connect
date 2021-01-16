@@ -22,7 +22,20 @@ const VoicemailDurationType = {
 class ContactFlowService {
 
     constructor() {
-        this.connect = new AWS.Connect({apiVersion: '2017-08-08'});
+
+        let _getPosition = function(string, subString, index) {
+            return string.split(subString, index).join(subString).length;
+          };
+
+
+        const arn = process.env.AMAZON_CONNECT_INSTANCE_ARN;
+        const connectRegion = arn.substr(_getPosition(arn, ":", 3)+1, _getPosition(arn, ":", 4) - _getPosition(arn, ":", 3)-1)
+        this.connect = new AWS.Connect({
+            region: connectRegion
+        });
+        this.connect.endpoint = `https://connect.${connectRegion}.amazonaws.com`;
+        console.info(`Connect service endpoint set to: ${this.connect.endpoint}`);
+        
         this.awsConnectInstanceId = process.env.AMAZON_CONNECT_INSTANCE_ARN.split('/')[1];
         this.getContactInfoLambdaArn = process.env.GET_AGENT_BY_EXTENSION_LAMBDA_ARN;
         this.loggingEnabled = true;
