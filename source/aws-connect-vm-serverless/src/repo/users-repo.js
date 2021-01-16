@@ -17,7 +17,7 @@ import {Agent} from "../domain/agent.domain";
 class UsersRepo {
 
     constructor() {
-        this.dynamo = new DynamoDBService(process.env.USERS_TABLE_NAME);
+        this.dynamo = new DynamoDBService(process.env.USERS_TABLE_NAME, process.env.DDB_REGION);
         this.amazonConnectInstanceId = process.env.AMAZON_CONNECT_INSTANCE_ARN;
     }
 

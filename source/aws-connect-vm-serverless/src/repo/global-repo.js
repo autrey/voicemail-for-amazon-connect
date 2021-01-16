@@ -17,7 +17,7 @@ import {GlobalSettings} from "../domain/global-settings.domain";
 class GlobalRepo {
 
     constructor() {
-        this.dynamo = new DynamoDBService(process.env.GLOBAL_TABLE_NAME);
+        this.dynamo = new DynamoDBService(process.env.GLOBAL_TABLE_NAME, process.env.DDB_REGION);
         this.amazonConnectInstanceArn = process.env.AMAZON_CONNECT_INSTANCE_ARN;
     }
 
@@ -29,6 +29,9 @@ class GlobalRepo {
             }
         };
         return this.dynamo.getItem(params).then(item => {
+            if (!item){
+                console.log('Item from DDB for global settings is null or undefined.');
+                console.log(item);            }
             return item ? new GlobalSettings(item) : null;
         });
     }

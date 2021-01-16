@@ -16,7 +16,7 @@ import {DynamoDBService} from "../lib/dynamo";
 class ContactVoicemailRepo {
 
     constructor() {
-        this.dynamo = new DynamoDBService(process.env.CONTACT_VOICEMAIL_TABLE_NAME);
+        this.dynamo = new DynamoDBService(process.env.CONTACT_VOICEMAIL_TABLE_NAME,  process.env.DDB_REGION);
     }
 
     updateTranscriptionStatus(contactId, timestamp, status) {
