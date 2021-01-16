@@ -31,15 +31,31 @@ class ContactVoicemailService {
 
     processVoicemailRecords(eventName, newRecord, oldRecord) {
         console.log("Processing Voicemail Recording");
+        console.log('newRecord:')
+        console.log(newRecord)
+        console.log('oldRecord:')
+        console.log(oldRecord)
+        console.log('eventName:')
+        console.log(eventName)
+        
         let newVoicemail = new ContactVoicemail(newRecord);
+        console.log('new voicemail obj:')
+        console.log(newVoicemail)
+        
         let oldVoicemail = new ContactVoicemail(oldRecord);
+        console.log('nold voicemail obj:')
+        console.log(oldVoicemail)
 
         let transcribeCompleted = (oldVoicemail.transcribeStatus === "IN_PROGRESS" && newVoicemail.transcribeStatus === "COMPLETED");
         if (transcribeCompleted) {
+            console.log('transcription completed');
             return this._deliver(newVoicemail);
         } else if (newVoicemail.transcribeStatus === null || newVoicemail.transcribeStatus === undefined) {
+            console.log('attempting to deliver voicemail that has a null or undefined transcription status');
             return this._deliver(newVoicemail);
         } else {
+            console.log('unhandled resolution');
+            console.log(`transcription status is: ${newVoicemail.transcribeStatus}`);
             return Promise.resolve({message: "Unhandled Resolution"});
         }
     }
@@ -49,6 +65,10 @@ class ContactVoicemailService {
             .then(result => {
                 let globalSettings = result[0];
                 let connectAgent = result[1];
+                console.log('delivering...');
+                console.log(connectAgent);
+                console.log(voicemail);
+                console.log(globalSettings);
                 return this.notificationService.deliver(globalSettings, voicemail, connectAgent);
             });
     }

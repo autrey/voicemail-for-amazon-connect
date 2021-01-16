@@ -49,6 +49,7 @@ class NotificationService {
      * @return {Promise<Object>}
      */
     deliver(globalSettings, voicemail, connectAgent) {
+        console.log('Sending SMS and or Email via notification service')
         let options = this.getTranscribeAndEncryptionSettings(globalSettings, voicemail);
         let deliveryOptions = connectAgent.agent.deliveryOptions;
         let shouldSendEmail = deliveryOptions.email;
@@ -227,6 +228,7 @@ class NotificationService {
      * @returns DeliveryOptionSettings
      */
     getTranscribeAndEncryptionSettings(globalSettings, voicemail) {
+        
         let transcribe = false;
         let encrypt = true;
 
